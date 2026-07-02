@@ -1,0 +1,21 @@
+{
+  "name": "analytics-agent",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "setup-auth": "tsx setup-auth.ts",
+    "report": "tsx daily-report.ts",
+    "test": "tsx daily-report.ts --dry-run"
+  },
+  "dependencies": {
+    "@google-analytics/data": "^4.8.0",
+    "dotenv": "^16.4.0",
+    "googleapis": "^144.0.0",
+    "resend": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}
