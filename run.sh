@@ -14,5 +14,9 @@ export PATH="/usr/local/bin:/opt/homebrew/bin:$PATH"
 cd "$AGENT_DIR"
 
 echo "--- $(date) ---" >> "$LOG"
-npx tsx daily-report.ts >> "$LOG" 2>&1
+# LaunchAgent runs at 7:00 AM via a brief Dark Wake; without this the Mac
+# goes back to sleep mid-run (~900s Maintenance Sleep cycles), freezing the
+# in-flight GA4 gRPC call and surfacing a stale DEADLINE_EXCEEDED on resume.
+# caffeinate -i holds an idle-sleep assertion for the process's lifetime.
+caffeinate -i npx tsx daily-report.ts >> "$LOG" 2>&1
 echo "Exit code: $?" >> "$LOG"
